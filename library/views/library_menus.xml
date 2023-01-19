@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="library_menu_root" name="Library Management">
+        <menuitem id="book_details_menu_action" action="book_details_action" sequence="10"
+        />
+        <menuitem id="book_borrow_menu_action" action="book_borrow_action" sequence="15"/>
+        <menuitem id="book_genre_menu_action" action="book_genre_action" sequence="20"/>
+        <menuitem id="library_member_menu_action" action="library_member_action" sequence="25"/>
+<!--        <menuitem id="library_product_menu_action" action="product_template_library_action" sequence="30"/>-->
+    </menuitem>
+</odoo>
+

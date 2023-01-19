@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_template_library_form_view">
+        <field name="name">product.template.library</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Book Details">
+                    <header>
+                        <field name = 'book_state' widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="genre_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="isbn_no"/>
+                            <field name="stock_of_copies"/>
+                            <field name="copies_of_book"/>
+                            <field name="manager_id" widget = "many2one_tags"/>
+                        </group>
+                        <group>
+                            <field name="author_id" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="published_year"/>
+                        </group>
+                    </group>
+                </page>
+<!--                <page string="Borrow Data">-->
+<!--                    <field name="borrow_ids"/>-->
+<!--                </page>-->
+            </notebook>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_template_view_kanban_library">
+        <field name="name">product.template.view.kanban.library</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_available']/parent::div" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[1]/div[2]/div[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <div>
+                ISBN No:
+                <field name='isbn_no'/>
+                <br/>
+            </div>
+            <div>
+                Author:
+                <field name='author_id'/>
+            </div>
+            <div>
+                Status:
+                <field name = 'book_state'/>
+            </div>
+        </field>
+    </record>
+    <record id="product_template_library_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new product
+            </p>
+            <p>
+                You must define a product for everything you sell or purchase,
+                whether it's a storable product, a consumable or a service.
+            </p>
+        </field>
+    </record>
+</odoo>
+
+

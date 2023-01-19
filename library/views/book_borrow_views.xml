@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="book_borrow_action" model="ir.actions.act_window">
+        <field name="name">Borrow Data</field>
+        <field name="res_model">book.borrow</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Welcome!
+            </p>
+            <p>
+                Welcome!
+            </p>
+        </field>
+    </record>
+    <record id="book_borrow_view_form" model="ir.ui.view">
+        <field name="name">book.borrow.form</field>
+        <field name="model">book.borrow</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="borrow_state" widget="statusbar" statusbar_visible="new,taken,returned"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="reader_id"
+                                   attrs="{'readonly': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"/>
+                            <field name="book_id"
+                                   attrs="{'readonly': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"
+                                   widget="many2many_tags"/>
+                            <field name="date_of_borrow"
+                                   attrs="{'readonly': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"/>
+                            <field name='fine'
+                            />
+                        </group>
+                        <group>
+                            <field name="validity"
+                                   attrs="{'readonly': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"/>
+                            <field name="deadline"
+                            />
+                            <field name='return_date'
+                            />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_borrow" type="object" string="Borrow"
+                                class="oe_highlight"
+                                attrs="{'invisible': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"
+                        />
+                        <button name="action_return" type="object" string="Return"
+                                attrs="{'invisible': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'new')]}"
+                        />
+                        <button string='cancel' class="btn-secondary" special='cancel'
+                                attrs="{'invisible': ['|',('borrow_state', '=', 'returned'),('borrow_state', '=', 'taken')]}"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="book_borrow_view_tree" model="ir.ui.view">
+        <field name="name">book.borrow.tree</field>
+        <field name="model">book.borrow</field>
+        <field name="arch" type="xml">
+            <tree string="Borrow data"
+                  decoration-info="borrow_state == 'taken'"
+                  decoration-success="borrow_state == 'returned'">
+                <field name="reader_id"/>
+                <field name="book_id" widget="many2many_tags"/>
+                <field name="date_of_borrow"/>
+                <field name="validity"/>
+                <field name="deadline"/>
+                <field name='return_date'/>
+                <field name='fine'/>
+                <field name='borrow_state'/>
+            </tree>
+        </field>
+    </record>
+    <record id="borrow_details_view_filter" model="ir.ui.view">
+        <field name="name">book.borrow.filter</field>
+        <field name="model">book.borrow</field>
+        <field name="arch" type="xml">
+            <search string="search by">
+                <filter name="book" string="By Book" context="{'group_by':'book_id'}"/>
+                <filter name="taken" string="Taken" domain="[('borrow_state','=','taken')]"/>
+                <filter name="returned" string="Returned" domain="[('borrow_state','=','returned')]"/>
+            </search>
+        </field>
+    </record>
+</odoo>
+

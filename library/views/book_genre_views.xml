@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="book_genre_action" model="ir.actions.act_window">
+        <field name="name">Genres</field>
+        <field name="res_model">book.genre</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Welcome!
+            </p>
+            <p>
+                Welcome!
+            </p>
+        </field>
+    </record>
+
+    <record id="book_genre_view_tree" model="ir.ui.view">
+        <field name="name">book.genre.tree</field>
+        <field name="model">book.genre</field>
+        <field name="arch" type="xml">
+            <tree string="Genre" editable = 'bottom'>
+                <field name="name"/>
+                <field name = "manager_id" widget = 'many2one_tags'/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+

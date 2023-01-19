@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_book_borrow_tree_inherit" model="ir.ui.view">
+            <field name="name">book.borrow.inherit</field>
+            <field name="model">book.borrow</field>
+            <field name="inherit_id" ref="library.book_borrow_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fine']" position="after">
+                    <field name="move_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
